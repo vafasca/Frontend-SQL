@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contactos</title>
   </head>
-  <body style="text-align: center;">
+  <body>
     <h1>CRUD CONTACTOS</h1>
     <section class="crud_contactos">
       <article>
@@ -24,7 +24,7 @@
       </article>
       <article>
         <h2>Ver contactos</h2>
-        <table class="crud_table"  style="padding-left: 500px;">
+        <table class="crud_table">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -44,20 +44,19 @@
             <td class="fecha_nacimiento"></td>
             <td>
                 <button class="update">Update</button>
-                <!-- <button>Delete logico</button> -->
-                <button class="delete">Delete fisico</button>
+                <button class="delete_l">Logic delete</button>
+                <button class="delete_p">Physical delete</button>
             </td>
         </tr>
     </template>
     <script>
-    const d = document,
-      $table = d.querySelector(".crud_table"),
-      $form = d.querySelector(".crud_form"),
-      $title = d.querySelector(".crud_title"),
-      $template = d.getElementById("crud_template").content,
-      $fragment = d.createDocumentFragment();
+      $table = document.querySelector(".crud_table"),
+      $form = document.querySelector(".crud_form"),
+      $title = document.querySelector(".crud_title"),
+      $template = document.getElementById("crud_template").content,
+      $fragment = document.createDocumentFragment();
 
-    const getAll = async () => {
+    const getContacts = async () => {
       try {
         let res = await fetch("http://localhost:9090/contactos"),
           json = await res.json();
@@ -65,8 +64,20 @@
         if (!res.ok) throw { status: res.status, statusText: res.statusText };
         console.log(json);
         json.forEach(el => {
-          
-        })
+          $template.querySelector(".name").textContent = el.nombre;
+          $template.querySelector(".email").textContent = el.email;
+          $template.querySelector(".fecha_nacimiento").textContent = el.fecha_nacimiento;
+          $template.querySelector(".update").dataset.id = el.id;
+          $template.querySelector(".update").dataset.name = el.nombre;
+          $template.querySelector(".update").dataset.email = el.email;
+          $template.querySelector(".update").dataset.fecha_nacimiento = el.fecha_nacimiento;
+          $template.querySelector(".delete_p").dataset.id = el.id;
+
+          let $clone = document.importNode($template, true);
+          $fragment.appendChild($clone);
+        });
+
+        $table.querySelector("tbody").appendChild($fragment);
 
         $table.querySelector("tbody").appendChild($fragment);
       } catch (err) {
@@ -75,7 +86,7 @@
       }
     }
 
-    d.addEventListener("DOMContentLoaded", getAll);
+    document.addEventListener("DOMContentLoaded", getContacts);
     </script>
   </body>
 </html>
