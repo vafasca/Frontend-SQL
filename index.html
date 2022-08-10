@@ -10,83 +10,54 @@
     <h1>CRUD CONTACTOS</h1>
     <section class="crud_contactos">
       <article>
-        <h2 class="crud_tittle">Agregar Contactos</h2>
+        <h2 class="crud_title">Agregar Contactos</h2>
         <form class="crud_form">
           <input type="text" name="nombre" placeholder="nombre" required />
-          <br>
+          <br />
           <input type="email" name="email" placeholder="email" required />
-          <br>
-          <input type="date" name="fecha_nacimiento" placeholder="fecha_nacimiento" required>
-          <br>
-          <input type="submit" value="Enviar">
-          <input type="hidden" name="id">
+          <br />
+          <input
+            type="date"
+            name="fecha_nacimiento"
+            placeholder="fecha_nacimiento"
+            required
+          />
+          <br />
+          <input type="text" name="telefono" placeholder="telefono" required />
+          <br />
+          <input type="hidden" name="id"/>
+          <input type="submit" value="Enviar" />
         </form>
       </article>
       <article>
         <h2>Ver contactos</h2>
         <table class="crud_table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>email</th>
-                    <th>fecha_nacimiento</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Fecha_nacimiento</th>
+              <th>Telefono</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
         </table>
       </article>
     </section>
     <template id="crud_template">
-        <tr>
-            <td class="name"></td>
-            <td class="email"></td>
-            <td class="fecha_nacimiento"></td>
-            <td>
-                <button class="update">Update</button>
-                <button class="delete_l">Logic delete</button>
-                <button class="delete_p">Physical delete</button>
-            </td>
-        </tr>
+      <tr>
+        <td class="name"></td>
+        <td class="email"></td>
+        <td class="fecha_nacimiento"></td>
+        <td class="telefono"></td>
+        <td>
+          <button class="update">Update</button>
+          <button class="delete_l">Logic delete</button>
+          <button class="delete_p">Physical delete</button>
+        </td>
+      </tr>
     </template>
-    <script>
-      $table = document.querySelector(".crud_table"),
-      $form = document.querySelector(".crud_form"),
-      $title = document.querySelector(".crud_title"),
-      $template = document.getElementById("crud_template").content,
-      $fragment = document.createDocumentFragment();
-
-    const getContacts = async () => {
-      try {
-        let res = await fetch("http://localhost:9090/contactos"),
-          json = await res.json();
-
-        if (!res.ok) throw { status: res.status, statusText: res.statusText };
-        console.log(json);
-        json.forEach(el => {
-          $template.querySelector(".name").textContent = el.nombre;
-          $template.querySelector(".email").textContent = el.email;
-          $template.querySelector(".fecha_nacimiento").textContent = el.fecha_nacimiento;
-          $template.querySelector(".update").dataset.id = el.id;
-          $template.querySelector(".update").dataset.name = el.nombre;
-          $template.querySelector(".update").dataset.email = el.email;
-          $template.querySelector(".update").dataset.fecha_nacimiento = el.fecha_nacimiento;
-          $template.querySelector(".delete_p").dataset.id = el.id;
-
-          let $clone = document.importNode($template, true);
-          $fragment.appendChild($clone);
-        });
-
-        $table.querySelector("tbody").appendChild($fragment);
-
-        $table.querySelector("tbody").appendChild($fragment);
-      } catch (err) {
-        let message = err.statusText || "Ocurrió un error";
-        $table.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", getContacts);
-    </script>
+    <script src="JS/contacto.js"></script>
   </body>
 </html>
