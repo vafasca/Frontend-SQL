@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contactos</title>
+  </head>
+  <body style="text-align: center;">
+    <h1>CRUD CONTACTOS</h1>
+    <section class="crud_contactos">
+      <article>
+        <h2 class="crud_tittle">Agregar Contactos</h2>
+        <form class="crud_form">
+          <input type="text" name="nombre" placeholder="nombre" required />
+          <br>
+          <input type="email" name="email" placeholder="email" required />
+          <br>
+          <input type="date" name="fecha_nacimiento" placeholder="fecha_nacimiento" required>
+          <br>
+          <input type="submit" value="Enviar">
+          <input type="hidden" name="id">
+        </form>
+      </article>
+      <article>
+        <h2>Ver contactos</h2>
+        <table class="crud_table"  style="padding-left: 500px;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>email</th>
+                    <th>fecha_nacimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+      </article>
+    </section>
+    <template id="crud_template">
+        <tr>
+            <td class="name"></td>
+            <td class="email"></td>
+            <td class="fecha_nacimiento"></td>
+            <td>
+                <button class="update">Update</button>
+                <!-- <button>Delete logico</button> -->
+                <button class="delete">Delete fisico</button>
+            </td>
+        </tr>
+    </template>
+    <script>
+    const d = document,
+      $table = d.querySelector(".crud_table"),
+      $form = d.querySelector(".crud_form"),
+      $title = d.querySelector(".crud_title"),
+      $template = d.getElementById("crud_template").content,
+      $fragment = d.createDocumentFragment();
+
+    const getAll = async () => {
+      try {
+        let res = await fetch("http://localhost:9090/contactos"),
+          json = await res.json();
+
+        if (!res.ok) throw { status: res.status, statusText: res.statusText };
+        console.log(json);
+        json.forEach(el => {
+          
+        })
+
+        $table.querySelector("tbody").appendChild($fragment);
+      } catch (err) {
+        let message = err.statusText || "Ocurrió un error";
+        $table.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
+      }
+    }
+
+    d.addEventListener("DOMContentLoaded", getAll);
+    </script>
+  </body>
+</html>
