@@ -108,7 +108,7 @@ if (e.target === form) {
   }
 }
 });
-document.addEventListener("click", e=>{
+document.addEventListener("click", async e=>{
 if (e.target.matches(".update")) {
   title.textContent = "Actualizar Contacto";
   form.id.value = e.target.dataset.id;
@@ -117,4 +117,29 @@ if (e.target.matches(".update")) {
   form.fecha_nacimiento.value = e.target.dataset.fecha_nacimiento;
   form.telefono.value = e.target.dataset.telefono;
 }
+
+if (e.target.matches(".delete_p")) {
+    console.log(form.nombre.value);
+    let isDelete = confirm(`Eliminar contacto`);
+
+    if (isDelete) {
+      //Delete - DELETE
+      try {
+        let options = {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json; charset=utf-8"
+          }
+        },
+          res = await fetch(`http://localhost:9090/api/v1/contact/${e.target.dataset.id}`, options),
+          json = await res.json();
+
+        if (!res.ok) throw { status: res.status, statusText: res.statusText };
+        location.reload();
+      } catch (err) {
+        let message = err.statusText || "Error";
+        alert(`Error ${err.status}: ${message}`);
+      }
+    }
+  }
 })
