@@ -22,6 +22,7 @@ try {
     template.querySelector(".update").dataset.fecha_nacimiento = el.fecha_nacimiento;
     template.querySelector(".update").dataset.telefono = el.telefono;
     template.querySelector(".delete_p").dataset.id = el.id;
+    template.querySelector(".delete_l").dataset.id = el.id;
 
     let clone = document.importNode(template, true);
     fragment.appendChild(clone);
@@ -119,6 +120,7 @@ if (e.target.matches(".update")) {
 }
 
 if (e.target.matches(".delete_p")) {
+  alert(e.target.dataset.id);
     console.log(form.nombre.value);
     let isDelete = confirm(`Eliminar contacto`);
 
@@ -131,7 +133,32 @@ if (e.target.matches(".delete_p")) {
             "Content-type": "application/json; charset=utf-8"
           }
         },
-          res = await fetch(`http://localhost:9090/api/v1/contact/${e.target.dataset.id}`, options),
+          res = await fetch(`http://localhost:9090/api/v1/contact/physicalDelete/${e.target.dataset.id}`, options),
+          json = await res.json();
+        if (!res.ok) throw { status: res.status, statusText: res.statusText };
+        location.reload();
+      } catch (err) {
+        let message = err.statusText || "Error";
+        alert(`Error ${err.status}: ${message}`);
+      }
+    }
+  }
+
+  //borrado logico
+  if (e.target.matches(".delete_l")) {
+    console.log(form.nombre.value);
+    let isDelete = confirm(`Eliminar contacto logicamente`);
+
+    if (isDelete) {
+      //Delete - DELETE - LOGIC
+      try {
+        let options = {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json; charset=utf-8"
+          }
+        },
+          res = await fetch(`http://localhost:9090/api/v1/contact/logicDelete/${e.target.dataset.id}`, options),
           json = await res.json();
 
         if (!res.ok) throw { status: res.status, statusText: res.statusText };
