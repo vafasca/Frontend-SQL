@@ -8,10 +8,10 @@
   </head>
   <body>
     <h1>CRUD CONTACTOS</h1>
-    <section class="crud_contactos">
+    <section class="crud_contactos" id="crud_contactos">
       <article>
-        <h2 class="crud_title">Agregar Contactos</h2>
-        <form class="crud_form">
+        <h2 class="crud_title" id="crud_title">Agregar Contactos</h2>
+        <form class="crud_form" id="crud_form">
           <input type="text" name="nombre" placeholder="nombre" required />
           <br />
           <input type="email" name="email" placeholder="email" required />
@@ -31,7 +31,7 @@
       </article>
       <article>
         <h2>Ver contactos</h2>
-        <table class="crud_table">
+        <table class="crud_table" id="crud_table">
           <thead>
             <tr>
               <th>Nombre</th>
@@ -45,16 +45,16 @@
         </table>
       </article>
     </section>
-    <template id="crud_template">
+    <template id="crud_template" class="crud_template">
       <tr>
-        <td class="name"></td>
-        <td class="email"></td>
-        <td class="fecha_nacimiento"></td>
-        <td class="telefono"></td>
+        <td class="name" id="name"></td>
+        <td class="email" id="email"></td>
+        <td class="fecha_nacimiento" id="fecha_nacimiento"></td>
+        <td class="telefono" id="telefono"></td>
         <td>
-          <button class="update">Update</button>
-          <button class="delete_l">Logic delete</button>
-          <button class="delete_p">Physical delete</button>
+          <button class="update" id="update">Update</button>
+          <button class="delete_l" id="delete_l">Logic delete</button>
+          <button class="delete_p" id="delete_p">Physical delete</button>
         </td>
       </tr>
     </template>

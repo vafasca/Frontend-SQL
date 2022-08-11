@@ -7,9 +7,9 @@
  * @fragment clona y almacena temporalmente el resultado para luego mandar al tbody
  * 
  */
-var table = document.querySelector(".crud_table");
-var form = document.querySelector(".crud_form");
-var title = document.querySelector(".crud_title");
+var table = document.querySelector("#crud_table");
+var form = document.querySelector("#crud_form");
+var title = document.querySelector("#crud_title");
 var template = document.getElementById("crud_template").content;
 var fragment = document.createDocumentFragment();
 
@@ -24,17 +24,17 @@ const getContacts = async () => {
     if (!res.ok) throw { status: res.status, statusText: res.statusText };
     console.log(json);
     json.forEach((el) => {
-      template.querySelector(".name").textContent = el.nombre;
-      template.querySelector(".email").textContent = el.email;
-      template.querySelector(".fecha_nacimiento").textContent = el.fecha_nacimiento;
-      template.querySelector(".telefono").textContent = el.telefono;
-      template.querySelector(".update").dataset.id = el.id;
-      template.querySelector(".update").dataset.name = el.nombre;
-      template.querySelector(".update").dataset.email = el.email;
-      template.querySelector(".update").dataset.fecha_nacimiento = el.fecha_nacimiento;
-      template.querySelector(".update").dataset.telefono = el.telefono;
-      template.querySelector(".delete_p").dataset.id = el.id;
-      template.querySelector(".delete_l").dataset.id = el.id;
+      template.querySelector("#name").textContent = el.nombre;
+      template.querySelector("#email").textContent = el.email;
+      template.querySelector("#fecha_nacimiento").textContent = el.fecha_nacimiento;
+      template.querySelector("#telefono").textContent = el.telefono;
+      template.querySelector("#update").dataset.id = el.id;
+      template.querySelector("#update").dataset.name = el.nombre;
+      template.querySelector("#update").dataset.email = el.email;
+      template.querySelector("#update").dataset.fecha_nacimiento = el.fecha_nacimiento;
+      template.querySelector("#update").dataset.telefono = el.telefono;
+      template.querySelector("#delete_p").dataset.id = el.id;
+      template.querySelector("#delete_l").dataset.id = el.id;
 
       let clone = document.importNode(template, true);
       fragment.appendChild(clone);
@@ -128,7 +128,7 @@ document.addEventListener("submit", async e => {
  * Evento al hacer click en update envia los valores de los datos
  */
 document.addEventListener("click", async e => {
-  if (e.target.matches(".update")) {
+  if (e.target.matches("#update")) {
     title.textContent = "Actualizar Contacto";
     form.id.value = e.target.dataset.id;
     form.nombre.value = e.target.dataset.name;
@@ -140,7 +140,7 @@ document.addEventListener("click", async e => {
   /**
    * Borrado fisico
    */
-  if (e.target.matches(".delete_p")) {
+  if (e.target.matches("#delete_p")) {
     console.log(form.nombre.value);
     let isDelete = confirm(`Eliminar contacto`);
 
@@ -166,7 +166,7 @@ document.addEventListener("click", async e => {
   /**
   * Borrado logico
   */
-  if (e.target.matches(".delete_l")) {
+  if (e.target.matches("#delete_l")) {
     console.log(form.nombre.value);
     let isDelete = confirm(`Eliminar contacto logicamente`);
 
