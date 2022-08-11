@@ -4,33 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/style.css">
     <title>Contactos</title>
   </head>
-  <body>
-    <h1>CRUD CONTACTOS</h1>
+  <body class="contactos" id="contactos">
     <section class="crud_contactos" id="crud_contactos">
       <article>
-        <h2 class="crud_title" id="crud_title">Agregar Contactos</h2>
+        <h2 class="crud_title" id="crud_title">Agregar Contacto</h2>
         <form class="crud_form" id="crud_form">
-          <input type="text" name="nombre" placeholder="nombre" required />
+          <input type="text" name="nombre" placeholder="nombre" class="button_input" required />
           <br />
-          <input type="email" name="email" placeholder="email" required />
+          <input type="email" name="email" placeholder="email" class="button_input" required />
           <br />
           <input
             type="date"
             name="fecha_nacimiento"
             placeholder="fecha_nacimiento"
+            class="button_input"
             required
           />
           <br />
-          <input type="text" name="telefono" placeholder="telefono" required />
+          <input type="text" name="telefono" placeholder="telefono" class="button_input" required />
           <br />
           <input type="hidden" name="id"/>
-          <input type="submit" value="Enviar" />
+          <input type="submit" value="Enviar" class="button_submit" />
         </form>
       </article>
       <article>
-        <h2>Ver contactos</h2>
+        <h2 class="sub_title_lista">Ver contactos</h2>
         <table class="crud_table" id="crud_table">
           <thead>
             <tr>
@@ -52,9 +53,9 @@
         <td class="fecha_nacimiento" id="fecha_nacimiento"></td>
         <td class="telefono" id="telefono"></td>
         <td>
-          <button class="update" id="update">Update</button>
-          <button class="delete_l" id="delete_l">Logic delete</button>
-          <button class="delete_p" id="delete_p">Physical delete</button>
+          <button class="button_submit2" id="update">Update</button>
+          <button class="button_submit2" id="delete_l">Logic delete</button>
+          <button class="button_submit2" id="delete_p">Physical delete</button>
         </td>
       </tr>
     </template>
